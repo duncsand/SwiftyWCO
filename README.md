@@ -17,6 +17,10 @@ You can change/add data on the following objects:
 
    `enrichedMsg` - the text of the incoming message from the user.
 
+Make sure to call `completionHandler(responseJSON)` after your work in order that the SwiftyWCO controller might continue with its good work and process the message through Watson Conversation.
+
 ## Post-process the output of Watson Conversation
-You can set a Converstion Context Object variable as a flag to SwiftyWCO, informing it of conversational events or when it needs to take action. For example, you might set the variable "special_action" on the Conversation Context object to "callRestaurantBookingAPI" in your conversational flow once you have all the data items ready. This flag would then be inspected in the PostProcessOutgoing function of the PostProcessOutgoing module, where appropriate calls to the restaurant booking API service might be made. Make sure to call completionHandler(responseJSON) after your work in order that the SwiftyWCO controller might continue with its good work and return the results to the user.
+You can set a Converstion Context Object variable as a flag to SwiftyWCO, informing it of conversational events or when it needs to take action. For example, you might set the variable "special_action" on the Conversation Context object to "callRestaurantBookingAPI" in your conversational flow once you have all the data items ready. This flag would then be inspected in the PostProcessOutgoing function of the PostProcessOutgoing module, where appropriate calls to the restaurant booking API service might be made. 
+
+Make sure to call `completionHandler(responseJSON)` after your work in order that the SwiftyWCO controller might continue with its good work and return the results to the user.
 
