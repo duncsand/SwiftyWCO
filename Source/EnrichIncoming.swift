@@ -14,16 +14,16 @@ import LoggerAPI
 class EnrichIncoming {
     
     // Find postcodes and names in incoming msg text and add to the message object
-    func enrichIncoming(msg:String, context:JSON, incomingMessageBody:JSON, completionHandler: @escaping (_ msg:String, _ context:JSON, _ msgBody:JSON)->Void) {
+    func enrichIncoming(context:JSON, incomingMessageBody:JSON, completionHandler: @escaping (_ context:JSON, _ msgBody:JSON)->Void) {
         var enrichedMsgBody = incomingMessageBody
         var enrichedContext = context
-        var enrichedMsg = msg
+        var enrichedMsg = incomingMessageBody["message"]["text"].string ?? ""
         
         // Add you enrichment logic here
         
         
         // Call completionHandler and complete message processing
-        completionHandler(enrichedMsg, enrichedContext, enrichedMsgBody)
+        completionHandler(enrichedContext, enrichedMsgBody)
     }
     
 }

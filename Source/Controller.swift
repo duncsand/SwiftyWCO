@@ -85,7 +85,6 @@ public class Controller {
         case .json(let incomingMessageBody):
             let conversationID = incomingMessageBody["sender"]["id"].string ?? ""
             let origin = incomingMessageBody["origin"].string ?? ""
-            let msg = incomingMessageBody["message"]["text"].string ?? ""
             
             //Find stored context
             self.findStoredContext(id: conversationID) {(document: JSON?) -> () in
@@ -96,8 +95,8 @@ public class Controller {
                     conversationContext = (document?["rows"][0]["doc"])!
                 }
                 let enrich = EnrichIncoming()
-                enrich.enrichIncoming(msg: msg, context: conversationContext, incomingMessageBody: incomingMessageBody, completionHandler: {(msg: String, context: JSON, msgBody:JSON)-> Void in
-                    self.processEnrichedMsg(msg: msg, context: context, incomingMessageBody: msgBody, response: response)
+                enrich.enrichIncoming(context: conversationContext, incomingMessageBody: incomingMessageBody, completionHandler: {(context: JSON, msgBody:JSON)-> Void in
+                    self.processEnrichedMsg(context: context, incomingMessageBody: msgBody, response: response)
                 })
             }
         default:
@@ -107,9 +106,10 @@ public class Controller {
     
     
     // Now process the message
-    func processEnrichedMsg (msg:String, context:JSON, incomingMessageBody:JSON, response:RouterResponse) {
+    func processEnrichedMsg (context:JSON, incomingMessageBody:JSON, response:RouterResponse) {
         
         // Send request to Watson Conversation
+        let msg = incomingMessageBody["message"]["text"].string ?? ""
         self.sendConversationRequest(msg: msg, context: context, completionHandler: {(responseJSON: JSON)->Void in
             
             // Process Response
