@@ -15,8 +15,6 @@ You can change/add data on the following objects:
 
    `enrichedContext` - the Conversation Context object,
 
-   `enrichedMsg` - the text of the incoming message from the user.
-
 Make sure to call `completionHandler(responseJSON)` after your work in order that the SwiftyWCO controller might continue with its good work and process the message through Watson Conversation.
 
 ## Post-process the output of Watson Conversation
